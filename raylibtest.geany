@@ -28,15 +28,15 @@ long_line_column=72
 
 [files]
 current_page=1
-FILE_NAME_0=35;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Flinux_platform.h;0;4
-FILE_NAME_1=1016;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Flinux_platform.c;0;4
-FILE_NAME_2=25;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2FgameLoop.h;0;4
-FILE_NAME_3=42;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Fsplash.h;0;4
-FILE_NAME_4=224;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Fsplash.c;0;4
-FILE_NAME_5=40;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Fmenu.h;0;4
-FILE_NAME_6=72;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Fmenu.c;0;4
-FILE_NAME_7=44;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Fgameplay.h;0;4
-FILE_NAME_8=76;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Fgameplay.c;0;4
+FILE_NAME_0=112;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Flinux_platform.h;0;4
+FILE_NAME_1=1012;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Flinux_platform.c;0;4
+FILE_NAME_2=102;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2FgameLoop.h;0;4
+FILE_NAME_3=128;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Fsplash.h;0;4
+FILE_NAME_4=373;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Fsplash.c;0;4
+FILE_NAME_5=93;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Fmenu.h;0;4
+FILE_NAME_6=103;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Fmenu.c;0;4
+FILE_NAME_7=105;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Fgameplay.h;0;4
+FILE_NAME_8=229;C;0;EUTF-8;1;1;0;%2Fhome%2Fpracticing01%2FDocuments%2Fraylibtest%2Fgameplay.c;0;4
 
 [VTE]
 last_dir=/home/practicing01

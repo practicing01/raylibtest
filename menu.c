@@ -1,8 +1,20 @@
 #include "raylib.h"
-#include "gameLoop.h"
+#include "moduleLoop.h"
 #include "linux_platform.h"
+#include "menu.h"
 
-void MenuLoop(struct DeltaTime *dt)
+void MenuInit()
+{
+	dt.elapsedTime = 0.0f;
+	ModuleLoop = MenuLoop;
+}
+
+void MenuExit()
+{
+	//
+}
+
+void MenuLoop()
 {
 	BeginDrawing();
 		ClearBackground(RAYWHITE);

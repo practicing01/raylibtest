@@ -1,6 +1,18 @@
 #include "raylib.h"
-#include "gameLoop.h"
+#include "moduleLoop.h"
 #include "linux_platform.h"
+#include "gameplay.h"
+
+void GameplayInit()
+{
+	dt.elapsedTime = 0.0f;
+	ModuleLoop = GameplayLoop;
+}
+
+void GameplayExit()
+{
+	//
+}
 
 void GameplayLoop(struct DeltaTime *dt)
 {

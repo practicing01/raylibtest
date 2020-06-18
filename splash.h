@@ -2,8 +2,16 @@
 #define SPLASH_H
 
 #include "raylib.h"
+#include "moduleLoop.h"
 #include "linux_platform.h"
 
-void SplashLoop(struct DeltaTime*);
+struct SplashData
+{
+	Texture2D tex;
+};
+
+void SplashInit();
+void SplashExit();
+void SplashLoop();
 
 #endif

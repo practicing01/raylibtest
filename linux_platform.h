@@ -3,14 +3,8 @@
 
 #include "raylib.h"
 
-enum LoopPhase {SPLASH, MENU, GAMEPLAY};
+enum ModulePhase {SPLASH, MENU, GAMEPLAY};
 
-struct DeltaTime
-{
-	float deltaTime;
-	float elapsedTime;
-};
-
-void SetLoop(enum LoopPhase, struct DeltaTime*);
+void SetModule(enum ModulePhase);
 
 #endif

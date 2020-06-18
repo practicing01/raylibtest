@@ -2,8 +2,11 @@
 #define MENU_H
 
 #include "raylib.h"
+#include "moduleLoop.h"
 #include "linux_platform.h"
 
-void MenuLoop(struct DeltaTime*);
+void MenuInit();
+void MenuExit();
+void MenuLoop();
 
 #endif

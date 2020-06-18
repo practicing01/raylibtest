@@ -2,8 +2,11 @@
 #define GAMEPLAY_H
 
 #include "raylib.h"
+#include "moduleLoop.h"
 #include "linux_platform.h"
 
-void GameplayLoop(struct DeltaTime*);
+void GameplayInit();
+void GameplayExit();
+void GameplayLoop();
 
 #endif

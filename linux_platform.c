@@ -22,26 +22,24 @@
 
 #include "raylib.h"
 #include "linux_platform.h"
-#include "gameLoop.h"
+#include "moduleLoop.h"
 #include "splash.h"
 #include "menu.h"
 #include "gameplay.h"
 
-void SetLoop(enum LoopPhase lp, struct DeltaTime *dt)
+void SetModule(enum ModulePhase mp)
 {
-	dt->elapsedTime = 0.0f;
-	
-	if (lp == MENU)
+	if (mp == MENU)
 	{
-		GameLoop = MenuLoop;
+		MenuInit();
 	}
-	else if (lp == GAMEPLAY)
+	else if (mp == GAMEPLAY)
 	{
-		GameLoop = GameplayLoop;
+		GameplayInit();
 	}
-	else if (lp == SPLASH)
+	else if (mp == SPLASH)
 	{
-		GameLoop = SplashLoop;
+		SplashInit();
 	}
 }
 
@@ -52,17 +50,14 @@ int main(void)
     const int screenWidth = 800;
     const int screenHeight = 450;
     
-    struct DeltaTime dt;
-    dt.elapsedTime = 0.0f;
-    
-    enum LoopPhase phase = SPLASH;
+    //enum ModulePhase phase = SPLASH;
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 
     SetTargetFPS(30);               // Set our game to run at 30 frames-per-second
     //--------------------------------------------------------------------------------------
-
-	GameLoop = SplashLoop;
+	
+	SetModule(SPLASH);
 	
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -72,10 +67,11 @@ int main(void)
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
 		dt.deltaTime = GetFrameTime();
+		dt.elapsedTime += dt.deltaTime;
 		
         // Draw
         //----------------------------------------------------------------------------------
-        GameLoop(&dt);
+        ModuleLoop();
         //----------------------------------------------------------------------------------
     }
 
