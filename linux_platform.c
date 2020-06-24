@@ -55,6 +55,8 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 
     SetTargetFPS(30);               // Set our game to run at 30 frames-per-second
+    
+    InitAudioDevice();
     //--------------------------------------------------------------------------------------
 	
 	SetModule(SPLASH);
@@ -76,6 +78,9 @@ int main(void)
     }
 
     // De-Initialization
+    
+    CloseAudioDevice();
+    
     //--------------------------------------------------------------------------------------
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------

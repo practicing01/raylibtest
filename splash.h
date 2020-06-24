@@ -7,9 +7,16 @@
 
 struct SplashData
 {
+	Model logo;
 	Texture2D tex;
+	Camera camera;
+	Vector3 logoPos;
+	char splashPhase;
+	char maxPhases;
+	Music logoMusic;
 };
 
+void SplashPhase();
 void SplashInit();
 void SplashExit();
 void SplashLoop();
