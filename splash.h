@@ -8,6 +8,7 @@
 struct SplashData
 {
 	Model logo;
+	Model island;
 	Texture2D tex;
 	Camera camera;
 	Vector3 logoPos;

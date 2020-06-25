@@ -13,8 +13,10 @@ void SplashPhase()
 	else if (((struct SplashData *)moduleData)->splashPhase == 1)
 	{
 		UnloadTexture( ((struct SplashData *)moduleData)->tex );
-		((struct SplashData *)moduleData)->tex = LoadTexture("splash/evitosoft.png");
+		
 		((struct SplashData *)moduleData)->logo = LoadModel("splash/evitosoft.glb");
+		((struct SplashData *)moduleData)->island = LoadModel("splash/island.glb");
+		
 		PlayMusicStream(((struct SplashData *)moduleData)->logoMusic);
 	}
 }
@@ -28,7 +30,7 @@ void SplashInit()
 	moduleData = data;
 	ModuleLoop = SplashLoop;
 	
-	data->camera.position = (Vector3){ 0.0f, 0.0f, 5.0f };
+	data->camera.position = (Vector3){ 0.0f, 0.0f, 10.0f };
 	data->camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
 	data->camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
 	data->camera.fovy = 45.0f;
@@ -45,8 +47,9 @@ void SplashInit()
 
 void SplashExit()
 {
-	UnloadTexture( ((struct SplashData *)moduleData)->tex );
 	UnloadModel( ((struct SplashData *)moduleData)->logo );
+	UnloadModel( ((struct SplashData *)moduleData)->island );
+	
 	UnloadMusicStream( ((struct SplashData *)moduleData)->logoMusic );
 	free( (struct SplashData *)moduleData );
 	moduleData = NULL;
@@ -59,11 +62,12 @@ void SplashLoop()
 	int texWidth = ((struct SplashData *)moduleData)->tex.width;
 	int texHeight = ((struct SplashData *)moduleData)->tex.height;
 	
-	BeginDrawing();
-		ClearBackground(RAYWHITE);		
+	BeginDrawing();	
 		
 		if (((struct SplashData *)moduleData)->splashPhase == 0)
 		{
+			ClearBackground(RAYWHITE);
+			
 			DrawTexture( ((struct SplashData *)moduleData)->tex , screenWidth/2 - texWidth/2, screenHeight/2 - texHeight/2, WHITE);
 			
 			if (dt.elapsedTime >= 3.0f)
@@ -76,11 +80,14 @@ void SplashLoop()
 		}
 		else if (((struct SplashData *)moduleData)->splashPhase == 1)
 		{
+			ClearBackground(GOLD);
+			
 			UpdateCamera(&( ((struct SplashData *)moduleData)->camera ));
 			UpdateMusicStream( ((struct SplashData *)moduleData)->logoMusic );
 			
 			BeginMode3D(((struct SplashData *)moduleData)->camera);
                 DrawModel(((struct SplashData *)moduleData)->logo, ((struct SplashData *)moduleData)->logoPos, 1.0f, WHITE);
+                DrawModel(((struct SplashData *)moduleData)->island, ((struct SplashData *)moduleData)->logoPos, 1.0f, WHITE);
             EndMode3D();
             
             float timePlayed = GetMusicTimePlayed( ((struct SplashData *)moduleData)->logoMusic );
