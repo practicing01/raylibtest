@@ -14,7 +14,7 @@ void GameplayExit()
 	//
 }
 
-void GameplayLoop(struct DeltaTime *dt)
+void GameplayLoop()
 {
 	BeginDrawing();
 		ClearBackground(RAYWHITE);

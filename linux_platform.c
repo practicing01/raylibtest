@@ -27,6 +27,15 @@
 #include "menu.h"
 #include "gameplay.h"
 
+void ScaleVec2(struct Vector2 *result, struct Vector2 *point, struct Vector2 *oldScale, struct Vector2 *newScale)
+{
+	int x = ( (*newScale).x * (*point).x ) / (*oldScale).x;
+	int y = ( (*newScale).y * (*point).y ) / (*oldScale).y;
+	
+	(*result).x = x;
+	(*result).y = y;
+}
+
 void SetModule(enum ModulePhase mp)
 {
 	if (mp == MENU)
