@@ -27,7 +27,7 @@
 #include "menu.h"
 #include "gameplay.h"
 
-void ScaleVec2(struct Vector2 *result, struct Vector2 *point, struct Vector2 *oldRes, struct Vector2 *newRes)
+void ScaleVec2(Vector2 *result, Vector2 *point, Vector2 *oldRes, Vector2 *newRes)
 {
 	int x = ( ((*newRes).x * (*point).x )) / (*oldRes).x;
 	int y = ( ((*newRes).y * (*point).y )) / (*oldRes).y;

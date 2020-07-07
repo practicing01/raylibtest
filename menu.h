@@ -5,12 +5,19 @@
 #include "moduleLoop.h"
 #include "linux_platform.h"
 
-struct MenuData
+struct Butt
 {
-	Rectangle playButt;
-	Rectangle exitButt;
+	Rectangle rect;
 	int defautFontSize;
 	int curFontSize;
+	char text[256];
+	Vector2 textPos;
+};
+
+struct MenuData
+{
+	struct Butt playButt;
+	struct Butt exitButt;
 };
 
 void MenuInit();

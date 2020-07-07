@@ -2,7 +2,8 @@
 #include "moduleLoop.h"
 #include "linux_platform.h"
 #include "menu.h"
-#include <stdlib.h> 
+#include <stdlib.h>
+#include <string.h>
 
 void MenuInit()
 {	
@@ -10,25 +11,48 @@ void MenuInit()
 	
 	struct MenuData *data = (struct MenuData *)malloc(sizeof(struct MenuData));
 	
-	struct Vector2 scaledDims;
-	struct Vector2 dims;
+	Vector2 scaledDims;
+	Vector2 dims;
 	dims.x = 100;
 	dims.y = 50;
-	struct Vector2 curRes;
+	Vector2 curRes;
 	curRes.x = GetScreenWidth();
 	curRes.y = GetScreenHeight();
 	
 	ScaleVec2(&scaledDims, &dims, &defaultRes, &curRes);
 	
-	(*data).playButt.x = (curRes.x/2) - scaledDims.x/2;
-	(*data).playButt.y = (curRes.y/2) - scaledDims.y;
-	(*data).playButt.width = scaledDims.x;
-	(*data).playButt.height = scaledDims.y;
+	(*data).playButt.rect.x = (curRes.x/2) - scaledDims.x/2;
+	(*data).playButt.rect.y = (curRes.y/2) - scaledDims.y;
+	(*data).playButt.rect.width = scaledDims.x;
+	(*data).playButt.rect.height = scaledDims.y;
 	
-	(*data).defautFontSize = 20;
+	(*data).exitButt.rect.x = (curRes.x/2) - scaledDims.x/2;
+	(*data).exitButt.rect.y = (curRes.y/2);
+	(*data).exitButt.rect.width = scaledDims.x;
+	(*data).exitButt.rect.height = scaledDims.y;
+	
+	(*data).playButt.defautFontSize = 20;
 	int defaultArea = defaultRes.x * defaultRes.y;
 	int curArea = curRes.x * curRes.y;
-	(*data).curFontSize = ( curArea * (*data).defautFontSize ) / defaultArea;
+	(*data).playButt.curFontSize = ( curArea * (*data).playButt.defautFontSize ) / defaultArea;
+	
+	(*data).exitButt.defautFontSize = 20;
+	(*data).exitButt.curFontSize = (*data).playButt.curFontSize;
+	
+	strcpy( (*data).playButt.text, "Play");
+	strcpy( (*data).exitButt.text, "Exit");
+	
+	int textWidth = MeasureText( (*data).playButt.text, (*data).playButt.curFontSize );
+	(*data).playButt.textPos.x = ( (*data).playButt.rect.width/2 ) - (textWidth/2);
+	(*data).playButt.textPos.y = ( (*data).playButt.rect.height/2 ) - ( (*data).playButt.curFontSize/2 );
+	(*data).playButt.textPos.x += (*data).playButt.rect.x;
+	(*data).playButt.textPos.y += (*data).playButt.rect.y;
+	
+	textWidth = MeasureText( (*data).exitButt.text, (*data).exitButt.curFontSize );
+	(*data).exitButt.textPos.x = ( (*data).exitButt.rect.width/2 ) - (textWidth/2 );
+	(*data).exitButt.textPos.y = ( (*data).exitButt.rect.height/2 ) - ( (*data).exitButt.curFontSize/2 );
+	(*data).exitButt.textPos.x += (*data).exitButt.rect.x;
+	(*data).exitButt.textPos.y += (*data).exitButt.rect.y;
 	
 	moduleData = data;
 	ModuleLoop = MenuLoop;
@@ -36,39 +60,64 @@ void MenuInit()
 
 void MenuExit()
 {
-	//
+	free( (struct MenuData *)moduleData );
+	moduleData = NULL;
 }
 
 void MenuLoop()
 {
-	int textWidth = MeasureText("Play", (* (struct MenuData *)moduleData).curFontSize);
-	struct Vector2 textPos;
-	textPos.x = ( (* (struct MenuData *)moduleData).playButt.width/2 ) - (textWidth/2);
-	textPos.y = ( (* (struct MenuData *)moduleData).playButt.height/2 ) - ((* (struct MenuData *)moduleData).curFontSize/2);
-	textPos.x += (* (struct MenuData *)moduleData).playButt.x;
-	textPos.y += (* (struct MenuData *)moduleData).playButt.y;
-	
 	BeginDrawing();
 		ClearBackground(RAYWHITE);
 		
-		DrawRectangleRec( (* (struct MenuData *)moduleData).playButt , LIGHTGRAY);
-		if (CheckCollisionPointRec(GetMousePosition(), (* (struct MenuData *)moduleData).playButt) )
+		//Play butt
+		
+		DrawRectangleRec( (* (struct MenuData *)moduleData).playButt.rect , LIGHTGRAY);
+		
+		if (CheckCollisionPointRec(GetMousePosition(), (* (struct MenuData *)moduleData).playButt.rect) )
 		{
-			DrawRectangleLines( (* (struct MenuData *)moduleData).playButt.x, (* (struct MenuData *)moduleData).playButt.y,
-			(* (struct MenuData *)moduleData).playButt.width, (* (struct MenuData *)moduleData).playButt.height, RED);
+			DrawRectangleLines( (* (struct MenuData *)moduleData).playButt.rect.x, (* (struct MenuData *)moduleData).playButt.rect.y,
+			(* (struct MenuData *)moduleData).playButt.rect.width, (* (struct MenuData *)moduleData).playButt.rect.height, RED);
 			
 			if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
 			{
-				DrawText("Play Pressed!", 0, 0, (* (struct MenuData *)moduleData).curFontSize, LIGHTGRAY);
+				DrawText("Play Pressed!", 0, 0, (* (struct MenuData *)moduleData).playButt.curFontSize, LIGHTGRAY);
 			};
 		}
 		else
 		{
-			DrawRectangleLines( (* (struct MenuData *)moduleData).playButt.x, (* (struct MenuData *)moduleData).playButt.y,
-			(* (struct MenuData *)moduleData).playButt.width, (* (struct MenuData *)moduleData).playButt.height, DARKGRAY);
+			DrawRectangleLines( (* (struct MenuData *)moduleData).playButt.rect.x, (* (struct MenuData *)moduleData).playButt.rect.y,
+			(* (struct MenuData *)moduleData).playButt.rect.width, (* (struct MenuData *)moduleData).playButt.rect.height, DARKGRAY);
 		}
 		
-		DrawText("Play", textPos.x, textPos.y, (* (struct MenuData *)moduleData).curFontSize, MAROON);
+		DrawText( (* (struct MenuData *)moduleData).playButt.text,
+		(* (struct MenuData *)moduleData).playButt.textPos.x,
+		(* (struct MenuData *)moduleData).playButt.textPos.y,
+		(* (struct MenuData *)moduleData).playButt.curFontSize, MAROON);
+		
+		//Exit butt
+		
+		DrawRectangleRec( (* (struct MenuData *)moduleData).exitButt.rect , LIGHTGRAY);
+		
+		if (CheckCollisionPointRec(GetMousePosition(), (* (struct MenuData *)moduleData).exitButt.rect) )
+		{
+			DrawRectangleLines( (* (struct MenuData *)moduleData).exitButt.rect.x, (* (struct MenuData *)moduleData).exitButt.rect.y,
+			(* (struct MenuData *)moduleData).exitButt.rect.width, (* (struct MenuData *)moduleData).exitButt.rect.height, RED);
+			
+			if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+			{
+				DrawText("Exit Pressed!", 0, 0, (* (struct MenuData *)moduleData).exitButt.curFontSize, LIGHTGRAY);
+			};
+		}
+		else
+		{
+			DrawRectangleLines( (* (struct MenuData *)moduleData).exitButt.rect.x, (* (struct MenuData *)moduleData).exitButt.rect.y,
+			(* (struct MenuData *)moduleData).exitButt.rect.width, (* (struct MenuData *)moduleData).exitButt.rect.height, DARKGRAY);
+		}
+		
+		DrawText( (* (struct MenuData *)moduleData).exitButt.text,
+		(* (struct MenuData *)moduleData).exitButt.textPos.x,
+		(* (struct MenuData *)moduleData).exitButt.textPos.y,
+		(* (struct MenuData *)moduleData).exitButt.curFontSize, MAROON);
 		
 	EndDrawing();
 }

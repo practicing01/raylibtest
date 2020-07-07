@@ -10,11 +10,11 @@ void SplashPhase()
 	{
 		Image image = LoadImage("splash/raylib_logo.png");
 		
-		struct Vector2 scaledDims;
-		struct Vector2 dims;
+		Vector2 scaledDims;
+		Vector2 dims;
 		dims.x = image.width;
 		dims.y = image.height;
-		struct Vector2 curRes;
+		Vector2 curRes;
 		curRes.x = GetScreenWidth();
 		curRes.y = GetScreenHeight();
 		
