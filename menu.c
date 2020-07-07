@@ -10,21 +10,18 @@ void MenuInit()
 	
 	struct MenuData *data = (struct MenuData *)malloc(sizeof(struct MenuData));
 	
-	int screenWidth = GetScreenWidth();
-	int screenHeight = GetScreenHeight();
-	
 	struct Vector2 scaledDims;
 	struct Vector2 dims;
 	dims.x = 100;
-	dims.y = 100;
+	dims.y = 50;
 	struct Vector2 curRes;
 	curRes.x = GetScreenWidth();
 	curRes.y = GetScreenHeight();
 	
 	ScaleVec2(&scaledDims, &dims, &defaultRes, &curRes);
 	
-	(*data).playButt.x = (screenWidth/2) - scaledDims.x;
-	(*data).playButt.y = (screenHeight/2) - scaledDims.y;
+	(*data).playButt.x = (curRes.x/2) - scaledDims.x/2;
+	(*data).playButt.y = (curRes.y/2) - scaledDims.y;
 	(*data).playButt.width = scaledDims.x;
 	(*data).playButt.height = scaledDims.y;
 	
@@ -44,6 +41,13 @@ void MenuExit()
 
 void MenuLoop()
 {
+	int textWidth = MeasureText("Play", (* (struct MenuData *)moduleData).curFontSize);
+	struct Vector2 textPos;
+	textPos.x = ( (* (struct MenuData *)moduleData).playButt.width/2 ) - (textWidth/2);
+	textPos.y = ( (* (struct MenuData *)moduleData).playButt.height/2 ) - ((* (struct MenuData *)moduleData).curFontSize/2);
+	textPos.x += (* (struct MenuData *)moduleData).playButt.x;
+	textPos.y += (* (struct MenuData *)moduleData).playButt.y;
+	
 	BeginDrawing();
 		ClearBackground(RAYWHITE);
 		
@@ -64,7 +68,7 @@ void MenuLoop()
 			(* (struct MenuData *)moduleData).playButt.width, (* (struct MenuData *)moduleData).playButt.height, DARKGRAY);
 		}
 		
-		DrawText("Play", (* (struct MenuData *)moduleData).playButt.x, (* (struct MenuData *)moduleData).playButt.y, (* (struct MenuData *)moduleData).curFontSize, MAROON);
+		DrawText("Play", textPos.x, textPos.y, (* (struct MenuData *)moduleData).curFontSize, MAROON);
 		
 	EndDrawing();
 }
