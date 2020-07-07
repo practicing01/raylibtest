@@ -13,10 +13,25 @@ void MenuInit()
 	int screenWidth = GetScreenWidth();
 	int screenHeight = GetScreenHeight();
 	
-	(*data).playButt.x = (screenWidth/2) - 100;//todo: deal with scaling.
-	(*data).playButt.y = (screenHeight/2) - 100;
-	(*data).playButt.width = 100;
-	(*data).playButt.height = 100;
+	struct Vector2 scaledDims;
+	struct Vector2 dims;
+	dims.x = 100;
+	dims.y = 100;
+	struct Vector2 curRes;
+	curRes.x = GetScreenWidth();
+	curRes.y = GetScreenHeight();
+	
+	ScaleVec2(&scaledDims, &dims, &defaultRes, &curRes);
+	
+	(*data).playButt.x = (screenWidth/2) - scaledDims.x;
+	(*data).playButt.y = (screenHeight/2) - scaledDims.y;
+	(*data).playButt.width = scaledDims.x;
+	(*data).playButt.height = scaledDims.y;
+	
+	(*data).defautFontSize = 20;
+	int defaultArea = defaultRes.x * defaultRes.y;
+	int curArea = curRes.x * curRes.y;
+	(*data).curFontSize = ( curArea * (*data).defautFontSize ) / defaultArea;
 	
 	moduleData = data;
 	ModuleLoop = MenuLoop;
@@ -40,7 +55,7 @@ void MenuLoop()
 			
 			if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
 			{
-				DrawText("Play Pressed!", 0, 0, 20, LIGHTGRAY);
+				DrawText("Play Pressed!", 0, 0, (* (struct MenuData *)moduleData).curFontSize, LIGHTGRAY);
 			};
 		}
 		else
@@ -49,7 +64,7 @@ void MenuLoop()
 			(* (struct MenuData *)moduleData).playButt.width, (* (struct MenuData *)moduleData).playButt.height, DARKGRAY);
 		}
 		
-		DrawText("Play", (* (struct MenuData *)moduleData).playButt.x + 10, (* (struct MenuData *)moduleData).playButt.y + 10, 40, MAROON);
+		DrawText("Play", (* (struct MenuData *)moduleData).playButt.x, (* (struct MenuData *)moduleData).playButt.y, (* (struct MenuData *)moduleData).curFontSize, MAROON);
 		
 	EndDrawing();
 }

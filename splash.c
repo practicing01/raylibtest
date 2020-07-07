@@ -8,7 +8,23 @@ void SplashPhase()
 {
 	if ((* (struct SplashData *)moduleData).splashPhase == 0)
 	{
-		(* (struct SplashData *)moduleData).tex = LoadTexture("splash/raylib_logo.png");
+		Image image = LoadImage("splash/raylib_logo.png");
+		
+		struct Vector2 scaledDims;
+		struct Vector2 dims;
+		dims.x = image.width;
+		dims.y = image.height;
+		struct Vector2 curRes;
+		curRes.x = GetScreenWidth();
+		curRes.y = GetScreenHeight();
+		
+		ScaleVec2(&scaledDims, &dims, &defaultRes, &curRes);
+		
+		ImageResize(&image, scaledDims.x, scaledDims.y);
+		
+		(* (struct SplashData *)moduleData).tex = LoadTextureFromImage(image);
+		
+		UnloadImage(image);
 	}
 	else if ((* (struct SplashData *)moduleData).splashPhase == 1)
 	{
@@ -59,16 +75,16 @@ void SplashLoop()
 {	
 	int screenWidth = GetScreenWidth();
 	int screenHeight = GetScreenHeight();
-	int texWidth = (* (struct SplashData *)moduleData).tex.width;
-	int texHeight = (* (struct SplashData *)moduleData).tex.height;
-	
+	int width = (* (struct SplashData *)moduleData).tex.width;
+	int height = (* (struct SplashData *)moduleData).tex.height;
+		
 	BeginDrawing();	
 		
 		if ((* (struct SplashData *)moduleData).splashPhase == 0)
 		{
 			ClearBackground(RAYWHITE);
 			
-			DrawTexture( (* (struct SplashData *)moduleData).tex , screenWidth/2 - texWidth/2, screenHeight/2 - texHeight/2, WHITE);
+			DrawTexture( (* (struct SplashData *)moduleData).tex ,screenWidth/2 - width/2, screenHeight/2 - height/2, WHITE);
 			
 			if (dt.elapsedTime >= 3.0f)
 			{

@@ -27,10 +27,10 @@
 #include "menu.h"
 #include "gameplay.h"
 
-void ScaleVec2(struct Vector2 *result, struct Vector2 *point, struct Vector2 *oldScale, struct Vector2 *newScale)
+void ScaleVec2(struct Vector2 *result, struct Vector2 *point, struct Vector2 *oldRes, struct Vector2 *newRes)
 {
-	int x = ( (*newScale).x * (*point).x ) / (*oldScale).x;
-	int y = ( (*newScale).y * (*point).y ) / (*oldScale).y;
+	int x = ( ((*newRes).x * (*point).x )) / (*oldRes).x;
+	int y = ( ((*newRes).y * (*point).y )) / (*oldRes).y;
 	
 	(*result).x = x;
 	(*result).y = y;
@@ -56,12 +56,13 @@ int main(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    defaultRes.x = 800;
+    defaultRes.y = 450;
     
     //enum ModulePhase phase = SPLASH;
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+    //InitWindow(defaultRes.x, defaultRes.y, "raylibtest");
+    InitWindow(800, 450, "raylibtest");
 
     SetTargetFPS(30);               // Set our game to run at 30 frames-per-second
     

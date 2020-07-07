@@ -9,6 +9,8 @@ struct MenuData
 {
 	Rectangle playButt;
 	Rectangle exitButt;
+	int defautFontSize;
+	int curFontSize;
 };
 
 void MenuInit();
