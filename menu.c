@@ -80,7 +80,9 @@ void MenuLoop()
 			
 			if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
 			{
-				DrawText("Play Pressed!", 0, 0, (* (struct MenuData *)moduleData).playButt.curFontSize, LIGHTGRAY);
+				MenuExit();
+				SetModule(GAMEPLAY);
+				return;
 			};
 		}
 		else
@@ -105,7 +107,8 @@ void MenuLoop()
 			
 			if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
 			{
-				DrawText("Exit Pressed!", 0, 0, (* (struct MenuData *)moduleData).exitButt.curFontSize, LIGHTGRAY);
+				ExitGame();
+				return;
 			};
 		}
 		else

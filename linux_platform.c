@@ -27,6 +27,11 @@
 #include "menu.h"
 #include "gameplay.h"
 
+void ExitGame()//todo: free memory from modules on abrupt exits.
+{
+	canExit = 1;
+}
+
 void ScaleVec2(Vector2 *result, Vector2 *point, Vector2 *oldRes, Vector2 *newRes)
 {
 	int x = ( ((*newRes).x * (*point).x )) / (*oldRes).x;
@@ -59,6 +64,8 @@ int main(void)
     defaultRes.x = 800;
     defaultRes.y = 450;
     
+    canExit = 0;
+    
     //enum ModulePhase phase = SPLASH;
 
     //InitWindow(defaultRes.x, defaultRes.y, "raylibtest");
@@ -72,7 +79,7 @@ int main(void)
 	SetModule(SPLASH);
 	
     // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    while (canExit == 0)
     {
         // Update
         //----------------------------------------------------------------------------------
@@ -87,13 +94,8 @@ int main(void)
         //----------------------------------------------------------------------------------
     }
 
-    // De-Initialization
-    
-    CloseAudioDevice();
-    
-    //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
+	CloseAudioDevice();
+	CloseWindow();
 
     return 0;
 }

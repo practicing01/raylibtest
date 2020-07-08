@@ -16,5 +16,8 @@ void *moduleData;
 void (*ModuleLoop)(void);
 
 void ScaleVec2(Vector2 *result, Vector2 *point, Vector2 *oldRes, Vector2 *newRes);
+void ExitGame();
+
+char canExit;
 
 #endif

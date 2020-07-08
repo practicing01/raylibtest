@@ -20,4 +20,9 @@ void GameplayLoop()
 		ClearBackground(RAYWHITE);
 		DrawText("GameplayLoop", 190, 200, 20, LIGHTGRAY);
 	EndDrawing();
+	
+	if (WindowShouldClose())
+	{
+		ExitGame();
+	}
 }
